@@ -1,6 +1,7 @@
 package com.example.lesson_1
 
 
+
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
@@ -12,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 
+
 class MainActivity : AppCompatActivity() {
 
     var name = "Name"
@@ -21,6 +23,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
 
         name = intent.getStringExtra("NAME")?: "Name"
         email = intent.getStringExtra("EMAIL")?: "Email"
@@ -47,5 +50,6 @@ class MainActivity : AppCompatActivity() {
             })
 
         builder.show()
+
     }
 }

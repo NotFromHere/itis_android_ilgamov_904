@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Lesson_1</string>
+    <string name="item_city_title">City_Example</string>
+    <string name="city_description">Да. Это, конечно, не Самара. И не Урюпинск. И не Пермь...</string>
 </resources>

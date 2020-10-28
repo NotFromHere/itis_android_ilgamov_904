@@ -18,7 +18,7 @@ class NoteViewHolder(
         title.text = note.title
         description.text = note.desc
 
-        itemView.setOnClickListener{ itemClickLambda(note) }
+        delete.setOnClickListener{ itemClickLambda(note) }
     }
 
     fun bundleBind(bundle: Bundle?){

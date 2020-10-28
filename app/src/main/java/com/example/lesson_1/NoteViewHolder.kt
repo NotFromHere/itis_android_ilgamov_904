@@ -14,7 +14,10 @@ class NoteViewHolder(
     val itemClickLambda: (Note) -> Unit
 ) : RecyclerView.ViewHolder(containerView), LayoutContainer {
 
+
+
     fun bind(note: Note){
+
         title.text = note.title
         description.text = note.desc
 

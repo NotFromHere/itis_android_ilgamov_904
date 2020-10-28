@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/emptyFragment"
+        android:icon="@drawable/icon_empty"
+        android:title="Empty"/>
+    <item
+        android:id="@+id/listFragment"
+        android:icon="@drawable/icon_list"
+        android:title="Empty"/>
+    <item
+        android:id="@+id/cardFragment"
+        android:icon="@drawable/icon_image"
+        android:title="Empty"/>
+</menu>

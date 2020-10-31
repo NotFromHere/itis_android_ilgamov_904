@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layoutCard"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
 
 
     <TextView
@@ -27,7 +27,15 @@
         android:layout_marginTop="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleViewPager" />
+        app:layout_constraintTop_toBottomOf="@+id/titleViewPager"/>
+
+    <me.relex.circleindicator.CircleIndicator3
+        android:id="@+id/circleIndicator"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        app:layout_constraintBottom_toBottomOf="@+id/viewPagerImage"/>
+
+
 
     <TextView
         android:id="@+id/descriptionViewPager"
@@ -35,7 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:padding="16dp"
-        android:text="Example Text for Description, pls help me to write this sheety fucking code OMG LMAO"
+        android:text="Description"
         android:textAlignment="viewStart"
         android:textColor="#A1A1A1"
         android:textSize="16sp"

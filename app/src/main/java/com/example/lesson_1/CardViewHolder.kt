@@ -18,6 +18,7 @@ class CardViewHolder(
 
     fun bind(cardView: CardView){
         viewPagerImage.adapter = ViewPagerAdapter(cardView.imageList)
+        circleIndicator.setViewPager(viewPagerImage)
         titleViewPager.text = cardView.title
         descriptionViewPager.text = cardView.description
     }

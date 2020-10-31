@@ -3,10 +3,7 @@ package com.example.lesson_1
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
-import androidx.recyclerview.widget.ItemTouchHelper
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -15,6 +12,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         /*Load Fragment when app launched*/
         supportFragmentManager.beginTransaction()
             .add(R.id.fragment_container, FragmentTextView())
@@ -42,7 +40,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.cardFragment -> {
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment_container, FragmentViewPager())
+                        .replace(R.id.fragment_container, FragmentCardView())
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                         .commit()
                     true

@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.lesson_1">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -19,11 +21,6 @@
         </activity>
     </application>
 
-    <uses-permission android:name="android.permission.INTERNET"
-        tools:ignore="ManifestOrder" />
 
-    <meta-data
-        android:value="e99f8d6bf92009340a1da7398a99b3c0"
-        android:name="api_key" />
 
 </manifest>

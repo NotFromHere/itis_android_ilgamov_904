@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.lesson_1">
 
     <application
@@ -17,5 +18,12 @@
             </intent-filter>
         </activity>
     </application>
+
+    <uses-permission android:name="android.permission.INTERNET"
+        tools:ignore="ManifestOrder" />
+
+    <meta-data
+        android:value="e99f8d6bf92009340a1da7398a99b3c0"
+        android:name="api_key" />
 
 </manifest>

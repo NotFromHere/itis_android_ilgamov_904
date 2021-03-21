@@ -1,17 +1,25 @@
-package com.example.lesson_1.activity
+package com.example.lesson_1.presenter
 
 import WeatherResponse
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.lesson_1.R
-import com.example.lesson_1.api.ApiFactory
+import com.example.lesson_1.data.api.ApiFactory
+import com.example.lesson_1.data.api.WeatherRepositoryImpl
+import com.example.lesson_1.domain.GetWeatherUseCase
 import kotlinx.android.synthetic.main.activity_weather.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class WeatherActivity : AppCompatActivity() {
+
+    private val getWeatherAroundUseCase = ApiFactory.weatherAPI.let {
+        WeatherRepositoryImpl(it).let {
+            GetWeatherUseCase(it)
+        }
+    }
 
     companion object{
         val CITY_ID = "KEY_CID"
@@ -27,7 +35,7 @@ class WeatherActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
     private fun setupWeather(cityID: Int) {
         CoroutineScope(Dispatchers.Main).launch {
-            val wResponse: WeatherResponse = ApiFactory.weatherAPI.getWeather(cityID)
+            val wResponse: WeatherResponse = getWeatherAroundUseCase.getWeather(cityID)
             tv_city_name.text = wResponse.name
             tv_temp.text = tv_temp.text.toString() + wResponse.main.temp.toInt() + "°C"
             tv_temp_fill.text =

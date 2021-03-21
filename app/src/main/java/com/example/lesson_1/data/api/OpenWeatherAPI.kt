@@ -1,4 +1,4 @@
-package com.example.lesson_1.api
+package com.example.lesson_1.data.api
 
 import CitiesAroundResponse
 import WeatherResponse

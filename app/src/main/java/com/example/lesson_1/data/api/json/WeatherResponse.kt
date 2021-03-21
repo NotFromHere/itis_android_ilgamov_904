@@ -1,5 +1,5 @@
-
 import com.google.gson.annotations.SerializedName
+
 data class WeatherResponse(
     @SerializedName("base")
     var base: String,

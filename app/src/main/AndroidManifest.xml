@@ -16,9 +16,9 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
 
-        <activity android:name=".activity.WeatherActivity"
+        <activity android:name=".presenter.WeatherActivity"
             android:launchMode="singleTop" />
-        <activity android:name=".activity.MainActivity">
+        <activity android:name=".presenter.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

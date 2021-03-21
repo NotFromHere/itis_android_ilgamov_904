@@ -3,6 +3,7 @@ package com.example.lesson_1.recycler
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
+import com.example.lesson_1.json.City
 
 class RecyclerCityAdapter(): ListAdapter<City, CityViewHolder>(object :
     DiffUtil.ItemCallback<City>() {

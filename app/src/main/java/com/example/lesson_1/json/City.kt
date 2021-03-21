@@ -1,4 +1,4 @@
-package com.example.lesson_1.recycler
+package com.example.lesson_1.json
 
 import Clouds
 import Coord

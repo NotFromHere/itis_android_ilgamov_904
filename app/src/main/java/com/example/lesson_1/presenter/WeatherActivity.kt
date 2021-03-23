@@ -37,9 +37,9 @@ class WeatherActivity : AppCompatActivity() {
         CoroutineScope(Dispatchers.Main).launch {
             val wResponse: WeatherResponse = getWeatherAroundUseCase.getWeather(cityID)
             tv_city_name.text = wResponse.name
-            tv_temp.text = tv_temp.text.toString() + wResponse.main.temp.toInt() + "°C"
+            tv_temp.text = tv_temp.text.toString() + wResponse.main.temp?.toInt() + "°C"
             tv_temp_fill.text =
-                tv_temp_fill.text.toString() + " " +  wResponse.main.feelsLike.toInt() + "°C"
+                tv_temp_fill.text.toString() + " " +  wResponse.main.feelsLike?.toInt() + "°C"
             tv_cloudy.text = tv_cloudy.text.toString() + wResponse.weather.get(0).description
             tv_humidity.text = tv_humidity.text.toString() + wResponse.main.humidity + "%"
             val windDeg = wResponse.wind.deg

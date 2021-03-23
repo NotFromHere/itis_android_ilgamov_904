@@ -43,17 +43,17 @@ data class Coord(
 
 data class Main(
     @SerializedName("feels_like")
-    var feelsLike: Double,
+    var feelsLike: Double?,
     @SerializedName("humidity")
-    var humidity: Int,
+    var humidity: Int?,
     @SerializedName("pressure")
-    var pressure: Int,
+    var pressure: Int?,
     @SerializedName("temp")
-    var temp: Double,
+    var temp: Double?,
     @SerializedName("temp_max")
-    var tempMax: Double,
+    var tempMax: Double?,
     @SerializedName("temp_min")
-    var tempMin: Double
+    var tempMin: Double?
 )
 
 data class Sys(

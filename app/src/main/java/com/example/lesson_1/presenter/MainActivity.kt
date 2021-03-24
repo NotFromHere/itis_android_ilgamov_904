@@ -45,6 +45,7 @@ class MainActivity : AppCompatActivity() {
                 FindCitiesAroundUseCase(it)
             }
     }
+    private lateinit var mySQLiteOpenHelper: MySQLiteOpenHelper
     private lateinit var database: SQLiteDatabase;
 
 
@@ -86,13 +87,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun dbExec() {
-        database = MySQLiteOpenHelper(this, DATABASE_NAME, null, 1).let {
-            try {
-                it.writableDatabase
-            } catch (e: SQLiteException) {
-                it.readableDatabase
-            }
+        mySQLiteOpenHelper = MySQLiteOpenHelper(this, DATABASE_NAME, null, 1)
+        database = try {
+            mySQLiteOpenHelper.writableDatabase
+        } catch (e: SQLiteException){
+            mySQLiteOpenHelper.readableDatabase
         }
+        mySQLiteOpenHelper.onOpen(database)
     }
 
     private fun getCitiesAround(lat: Double, lon: Double, cnt: Int) {
@@ -113,7 +114,7 @@ class MainActivity : AppCompatActivity() {
                 val list = arrayListOf<City>()
                 database.query("CITY_AROUND", null, null, null, null, null, null).let {
                     it.moveToFirst()
-                    while(it.isAfterLast){
+                    while(!it.isAfterLast){
                         val id: Int = it.getInt(it.getColumnIndex(BaseColumns._ID))
                         val name: String = it.getString(it.getColumnIndex("CITY_NAME"))
                         val temp: Double = it.getDouble(it.getColumnIndex("COLUMN_TEMP"))
@@ -124,6 +125,9 @@ class MainActivity : AppCompatActivity() {
                     }
                     if(list.isEmpty()){
                         Log.d("123123123", "gg")
+                    }
+                    if(database.isOpen){
+                        Log.d("db_connection", "ok")
                     }
                     rvCityAdapter.submitList(list)
                 }

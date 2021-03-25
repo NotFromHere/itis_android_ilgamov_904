@@ -1,4 +1,5 @@
-import com.example.lesson_1.json.City
+package com.example.lesson_1.data.api.json
+
 import com.google.gson.annotations.SerializedName
 data class CitiesAroundResponse(
     @SerializedName("cod")

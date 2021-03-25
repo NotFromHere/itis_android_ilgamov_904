@@ -1,7 +1,7 @@
-package com.example.lesson_1.api
+package com.example.lesson_1.data.api
 
-import CitiesAroundResponse
-import WeatherResponse
+import com.example.lesson_1.data.api.json.CitiesAroundResponse
+import com.example.lesson_1.data.api.json.WeatherResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 

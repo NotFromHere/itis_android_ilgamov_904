@@ -1,11 +1,11 @@
-package com.example.lesson_1.activity
+package com.example.lesson_1.presenter
 
-import WeatherResponse
+import com.example.lesson_1.data.api.json.WeatherResponse
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.lesson_1.R
-import com.example.lesson_1.api.ApiFactory
+import com.example.lesson_1.data.api.ApiFactory
 import kotlinx.android.synthetic.main.activity_weather.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

@@ -1,11 +1,5 @@
-package com.example.lesson_1.json
+package com.example.lesson_1.data.api.json
 
-import Clouds
-import Coord
-import Main
-import Sys
-import Weather
-import Wind
 import com.google.gson.annotations.SerializedName
 
 

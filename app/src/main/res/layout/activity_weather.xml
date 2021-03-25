@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#11131B"
     android:layout_gravity="center"
-    tools:context=".activity.WeatherActivity">
+    tools:context=".presenter.WeatherActivity">
 
     <TextView
         android:id="@+id/tv_city_name"

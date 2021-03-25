@@ -1,4 +1,4 @@
-package com.example.lesson_1.data.api.json
+package com.example.lesson_1.json
 
 import Clouds
 import Coord

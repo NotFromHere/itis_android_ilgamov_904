@@ -1,4 +1,4 @@
-package com.example.lesson_1.presenter
+package com.example.lesson_1.recycler
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -8,7 +8,8 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lesson_1.R
-import com.example.lesson_1.data.api.json.City
+import com.example.lesson_1.activity.WeatherActivity
+import com.example.lesson_1.json.City
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.viewholder_city.view.*
 

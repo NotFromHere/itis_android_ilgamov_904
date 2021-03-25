@@ -1,9 +1,9 @@
-package com.example.lesson_1.presenter
+package com.example.lesson_1.recycler
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import com.example.lesson_1.data.api.json.City
+import com.example.lesson_1.json.City
 
 class RecyclerCityAdapter(): ListAdapter<City, CityViewHolder>(object :
     DiffUtil.ItemCallback<City>() {
@@ -12,8 +12,7 @@ class RecyclerCityAdapter(): ListAdapter<City, CityViewHolder>(object :
     override fun areContentsTheSame(oldItem: City, newItem: City) = oldItem == newItem
 
 }) {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        CityViewHolder.create(parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = CityViewHolder.create(parent)
 
     override fun onBindViewHolder(holder: CityViewHolder, position: Int) {
         holder.bind(currentList[position])

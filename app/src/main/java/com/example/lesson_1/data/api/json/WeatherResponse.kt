@@ -2,31 +2,31 @@ import com.google.gson.annotations.SerializedName
 
 data class WeatherResponse(
     @SerializedName("base")
-    var base: String,
+    var base: String?,
     @SerializedName("clouds")
-    var clouds: Clouds,
+    var clouds: Clouds?,
     @SerializedName("cod")
-    var cod: Int,
+    var cod: Int?,
     @SerializedName("coord")
-    var coord: Coord,
+    var coord: Coord?,
     @SerializedName("dt")
-    var dt: Int,
+    var dt: Int?,
     @SerializedName("id")
-    var id: Int,
+    var id: Int?,
     @SerializedName("main")
-    var main: Main,
+    var main: Main?,
     @SerializedName("name")
-    var name: String,
+    var name: String?,
     @SerializedName("sys")
-    var sys: Sys,
+    var sys: Sys?,
     @SerializedName("timezone")
-    var timezone: Int,
+    var timezone: Int?,
     @SerializedName("visibility")
-    var visibility: Int,
+    var visibility: Int?,
     @SerializedName("weather")
-    var weather: List<Weather>,
+    var weather: List<Weather>?,
     @SerializedName("wind")
-    var wind: Wind
+    var wind: Wind?
 )
 
 data class Clouds(
@@ -73,16 +73,16 @@ data class Weather(
     @SerializedName("description")
     var description: String,
     @SerializedName("icon")
-    var icon: String,
+    var icon: String?,
     @SerializedName("id")
-    var id: Int,
+    var id: Int?,
     @SerializedName("main")
-    var main: String
+    var main: String?
 )
 
 data class Wind(
     @SerializedName("deg")
     var deg: Int,
     @SerializedName("speed")
-    var speed: Double
+    var speed: Double?
 )

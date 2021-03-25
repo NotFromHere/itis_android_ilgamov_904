@@ -87,7 +87,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun dbExec() {
-        mySQLiteOpenHelper = MySQLiteOpenHelper(this, DATABASE_NAME, null, 1)
+        mySQLiteOpenHelper = MySQLiteOpenHelper(this, DATABASE_NAME, null, 2)
         database = try {
             mySQLiteOpenHelper.writableDatabase
         } catch (e: SQLiteException){

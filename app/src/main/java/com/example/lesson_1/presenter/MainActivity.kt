@@ -1,17 +1,22 @@
 package com.example.lesson_1.presenter
 
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.lifecycle.lifecycleScope
+import androidx.room.Room
+import androidx.room.RoomDatabase
 import com.example.lesson_1.R
 import com.example.lesson_1.data.api.ApiFactory
 import com.example.lesson_1.data.api.WeatherRepositoryImpl
-import com.example.lesson_1.data.api.json.City
-import com.example.lesson_1.data.api.json.CityID
 import com.example.lesson_1.domain.FindCitiesAroundUseCase
+import com.example.lesson_1.domain.entity.CityDomain
+import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -20,7 +25,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.launch
 import java.io.*
 import java.lang.reflect.Type
-import java.net.UnknownHostException
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -28,10 +33,20 @@ class MainActivity : AppCompatActivity() {
     private var longitude: Double = 20.0
     private val rvCityAdapter by lazy { RecyclerCityAdapter() }
 
-    private val findCitiesAroundUseCase = ApiFactory.weatherAPI.let {
-        WeatherRepositoryImpl(it).let {
-            FindCitiesAroundUseCase(it)
+    private val findCitiesAroundUseCase: FindCitiesAroundUseCase by lazy {
+        val db = Room.databaseBuilder(
+            applicationContext,
+            AppDatabase::class.java, "database-name"
+        ).allowMainThreadQueries().build()
+        ApiFactory.weatherAPI.let {
+            WeatherRepositoryImpl(it, db.weatherDao()).let {
+                FindCitiesAroundUseCase(it)
+            }
         }
+    }
+
+    companion object{
+        private const val DATABASE_NAME = "mydb"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,23 +54,34 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         rv_main.adapter = rvCityAdapter
         searchCity()
-/*                FusedLocationProviderClient(this).lastLocation.addOnCompleteListener {
+
+
+
+
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            return
+        }
+        FusedLocationProviderClient(this).lastLocation.addOnCompleteListener {
                         if (it.result != null){
                             this@MainActivity.latitude = it.result.latitude
                             this@MainActivity.longitude = it.result.longitude
                         }
                         getCitiesAround(latitude, longitude, 20)
-                }*/
+                }
     }
 
     private fun getCitiesAround(lat: Double, lon: Double, cnt: Int) {
         lifecycleScope.launch {
-            try {
                 findCitiesAroundUseCase.getCities(lat, lon, cnt).run {
-                    rvCityAdapter.submitList(this.list)
+                    rvCityAdapter.submitList(this)
                 }
-            } catch (e: UnknownHostException) {
-            }
         }
     }
 
@@ -63,8 +89,8 @@ class MainActivity : AppCompatActivity() {
         search_main.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 val gson = Gson()
-                val typeToke: Type = object : TypeToken<List<CityID>>() {}.type
-                val cityList: List<CityID> = gson.fromJson(
+                val typeToke: Type = object : TypeToken<List<CityDomain>>() {}.type
+                val cityList: List<CityDomain> = gson.fromJson(
                     JsonReader(InputStreamReader(assets.open("city.list.json"))),
                     typeToke
                 )
@@ -100,6 +126,16 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+    private fun createRoomDbInstance(): RoomDatabase{
+        return Room.databaseBuilder(
+            this,
+            RoomDatabase::class.java,
+            DATABASE_NAME
+        )
+            .createFromFile(File("path"))
+            .createFromAsset("database/mydb.db")
+            .build()
+    }
 }
 
 

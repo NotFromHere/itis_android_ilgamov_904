@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lesson_1.R
-import com.example.lesson_1.data.api.json.City
+import com.example.lesson_1.domain.entity.CityDomain
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.viewholder_city.view.*
 
@@ -16,9 +16,9 @@ class CityViewHolder(override val containerView: View):
     RecyclerView.ViewHolder(containerView), LayoutContainer {
 
     @SuppressLint("SetTextI18n")
-    fun bind(city: City){
+    fun bind(city: CityDomain){
         containerView.tv_cityName.text = city.name
-        containerView.tv_cityTemp.text = city.main?.temp.toString() + "°C"
+        containerView.tv_cityTemp.text = city.temp.toString() + "°C"
         setTempColor(city)
         containerView.setOnClickListener {
             Intent(containerView.context, WeatherActivity::class.java).also {
@@ -28,9 +28,9 @@ class CityViewHolder(override val containerView: View):
         }
     }
 
-    private fun setTempColor(city: City) {
+    private fun setTempColor(city: CityDomain) {
         when {
-            city.main?.temp!! < -20.0 -> {
+            city.temp < -20.0 -> {
                 containerView.tv_cityTemp.setTextColor(
                     ContextCompat.getColor(
                         containerView.context,
@@ -38,7 +38,7 @@ class CityViewHolder(override val containerView: View):
                     )
                 )
             }
-            city.main?.temp!! < -10.0 -> {
+            city.temp < -10.0 -> {
                 containerView.tv_cityTemp.setTextColor(
                     ContextCompat.getColor(
                         containerView.context,
@@ -46,7 +46,7 @@ class CityViewHolder(override val containerView: View):
                     )
                 )
             }
-            city.main?.temp!! < 0 -> {
+            city.temp < 0 -> {
                 containerView.tv_cityTemp.setTextColor(
                     ContextCompat.getColor(
                         containerView.context,
@@ -54,7 +54,7 @@ class CityViewHolder(override val containerView: View):
                     )
                 )
             }
-            city.main?.temp!! < 10.0 -> {
+            city.temp < 10.0 -> {
                 containerView.tv_cityTemp.setTextColor(
                     ContextCompat.getColor(
                         containerView.context,
@@ -62,7 +62,7 @@ class CityViewHolder(override val containerView: View):
                     )
                 )
             }
-            city.main?.temp!! < 20.0 -> {
+            city.temp < 20.0 -> {
                 containerView.tv_cityTemp.setTextColor(
                     ContextCompat.getColor(
                         containerView.context,

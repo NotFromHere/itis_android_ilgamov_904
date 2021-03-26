@@ -1,4 +1,8 @@
 package com.example.lesson_1.data.api.json
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.ForeignKey
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 data class WeatherResponse(
     @SerializedName("base")

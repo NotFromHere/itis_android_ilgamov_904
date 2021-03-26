@@ -4,8 +4,12 @@ import com.example.lesson_1.data.api.json.WeatherResponse
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.room.Room
 import com.example.lesson_1.R
 import com.example.lesson_1.data.api.ApiFactory
+import com.example.lesson_1.data.api.WeatherRepositoryImpl
+import com.example.lesson_1.domain.FindCitiesAroundUseCase
+import com.example.lesson_1.domain.GetWeatherUseCase
 import kotlinx.android.synthetic.main.activity_weather.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -24,17 +28,32 @@ class WeatherActivity : AppCompatActivity() {
         setupWeather(cityID)
     }
 
+    private val getWeatherUseCase: GetWeatherUseCase by lazy {
+        val db = Room.databaseBuilder(
+            applicationContext,
+            AppDatabase::class.java, "database-name"
+        )
+            .allowMainThreadQueries()
+            .fallbackToDestructiveMigration()
+            .build()
+        ApiFactory.weatherAPI.let {
+            WeatherRepositoryImpl(it, db.weatherDao()).let {
+                GetWeatherUseCase(it)
+            }
+        }
+    }
+
     @SuppressLint("SetTextI18n")
     private fun setupWeather(cityID: Int) {
         CoroutineScope(Dispatchers.Main).launch {
-            val wResponse: WeatherResponse = ApiFactory.weatherAPI.getWeather(cityID)
-            tv_city_name.text = wResponse.name
-            tv_temp.text = tv_temp.text.toString() + wResponse.main.temp.toInt() + "°C"
+            val weather = getWeatherUseCase.getWeather(cityID)
+            tv_city_name.text = weather.cityName
+            tv_temp.text = tv_temp.text.toString() + weather.temp.toInt() + "°C"
             tv_temp_fill.text =
-                tv_temp_fill.text.toString() + " " +  wResponse.main.feelsLike.toInt() + "°C"
-            tv_cloudy.text = tv_cloudy.text.toString() + wResponse.weather.get(0).description
-            tv_humidity.text = tv_humidity.text.toString() + wResponse.main.humidity + "%"
-            val windDeg = wResponse.wind.deg
+                tv_temp_fill.text.toString() + " " +  weather.tempFeel.toInt() + "°C"
+            tv_cloudy.text = tv_cloudy.text.toString() + weather.cloudy
+            tv_humidity.text = tv_humidity.text.toString() + weather.humidity + "%"
+            val windDeg = weather.wind
             when {
                 windDeg < 45 -> tv_wind.text = tv_wind.text.toString() + "Север"
                 windDeg < 90 -> tv_wind.text = tv_wind.text.toString() + "Северо-Восток"
@@ -46,7 +65,7 @@ class WeatherActivity : AppCompatActivity() {
                 windDeg < 360 -> tv_wind.text = tv_wind.text.toString() + "Северо-Запад"
                 else -> tv_wind.text = tv_wind.text.toString() + "Север"
             }
-            tv_pressure.text = tv_pressure.text.toString() + wResponse.main.pressure + " мм рт. ст."
+            tv_pressure.text = tv_pressure.text.toString() + weather.pressure + " мм рт. ст."
         }
     }
 }

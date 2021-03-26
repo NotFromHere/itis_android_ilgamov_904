@@ -37,7 +37,10 @@ class MainActivity : AppCompatActivity() {
         val db = Room.databaseBuilder(
             applicationContext,
             AppDatabase::class.java, "database-name"
-        ).allowMainThreadQueries().build()
+        )
+            .allowMainThreadQueries()
+            .fallbackToDestructiveMigration()
+            .build()
         ApiFactory.weatherAPI.let {
             WeatherRepositoryImpl(it, db.weatherDao()).let {
                 FindCitiesAroundUseCase(it)

@@ -33,7 +33,7 @@ class WeatherActivity : AppCompatActivity() {
             applicationContext,
             AppDatabase::class.java, "database-name"
         )
-            .allowMainThreadQueries()
+            .allowMainThreadQueries() //ТУТ ТОЖЕ ПОЗЯЗЯ
             .fallbackToDestructiveMigration()
             .build()
         ApiFactory.weatherAPI.let {

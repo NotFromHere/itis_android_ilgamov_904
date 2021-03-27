@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
             applicationContext,
             AppDatabase::class.java, "database-name"
         )
-            .allowMainThreadQueries()
+            .allowMainThreadQueries() //НЕ БЕЙТЕ, НЕ НАДО
             .fallbackToDestructiveMigration()
             .build()
         ApiFactory.weatherAPI.let {

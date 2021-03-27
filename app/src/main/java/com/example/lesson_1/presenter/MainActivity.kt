@@ -5,6 +5,7 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -23,6 +24,7 @@ import com.google.gson.reflect.TypeToken
 import com.google.gson.stream.JsonReader
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
 import java.io.*
 import java.lang.reflect.Type
 
@@ -57,10 +59,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         rv_main.adapter = rvCityAdapter
         searchCity()
-
-
-
-
         if (ActivityCompat.checkSelfPermission(
                 this,
                 Manifest.permission.ACCESS_FINE_LOCATION
@@ -91,33 +89,21 @@ class MainActivity : AppCompatActivity() {
     private fun searchCity() {
         search_main.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                val gson = Gson()
-                val typeToke: Type = object : TypeToken<List<CityDomain>>() {}.type
-                val cityList: List<CityDomain> = gson.fromJson(
-                    JsonReader(InputStreamReader(assets.open("city.list.json"))),
-                    typeToke
-                )
-                var flag = false
-                var cityID: Int = -1
-                cityList.forEach {
-                    if (it.name.equals(query)) {
-                        flag = true
-                        cityID = it.id
-                        return@forEach
+                lifecycleScope.launch {
+                    try {
+                        val cityID = findCitiesAroundUseCase.getCityId(query.toString())
+                        Intent(this@MainActivity, WeatherActivity::class.java).run {
+                            putExtra(WeatherActivity.CITY_ID, cityID)
+                            startActivity(this)
+                        }
+                    } catch (e: HttpException){
+                        Snackbar.make(
+                            findViewById(android.R.id.content),
+                            "Город $query не найден",
+                            Snackbar.LENGTH_SHORT
+                        )
+                            .show()
                     }
-                }
-                if (flag) {
-                    Intent(this@MainActivity, WeatherActivity::class.java).run {
-                        putExtra(WeatherActivity.CITY_ID, cityID)
-                        startActivity(this)
-                    }
-                } else {
-                    Snackbar.make(
-                        findViewById(android.R.id.content),
-                        "Город $query не найден",
-                        Snackbar.LENGTH_SHORT
-                    )
-                        .show()
                 }
                 return true
             }

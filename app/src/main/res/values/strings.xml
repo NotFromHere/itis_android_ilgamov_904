@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">Lesson_1</string>
+    <string name="app_name">Weather</string>
+    <string name="feels_like_const">Ощущается как:</string>
 </resources>

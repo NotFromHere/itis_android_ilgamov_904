@@ -1,4 +1,4 @@
-package com.example.lesson_1.presenter
+package com.example.lesson_1.presenter.recycler
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lesson_1.R
 import com.example.lesson_1.domain.entity.CityDomain
+import com.example.lesson_1.presenter.activity.WeatherActivity
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.viewholder_city.view.*
 

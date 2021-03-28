@@ -1,15 +1,14 @@
-package com.example.lesson_1.presenter
+package com.example.lesson_1.presenter.activity
 
-import com.example.lesson_1.data.api.json.WeatherResponse
 import android.annotation.SuppressLint
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.room.Room
 import com.example.lesson_1.R
+import com.example.lesson_1.data.impl.WeatherRepositoryImpl
 import com.example.lesson_1.data.api.ApiFactory
-import com.example.lesson_1.data.api.WeatherRepositoryImpl
-import com.example.lesson_1.domain.FindCitiesAroundUseCase
-import com.example.lesson_1.domain.GetWeatherUseCase
+import com.example.lesson_1.domain.usecase.GetWeatherUseCase
+import com.example.lesson_1.presenter.AppDatabase
 import kotlinx.android.synthetic.main.activity_weather.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -19,13 +18,6 @@ class WeatherActivity : AppCompatActivity() {
 
     companion object{
         val CITY_ID = "KEY_CID"
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_weather)
-        val cityID = intent.getIntExtra(CITY_ID, -1)
-        setupWeather(cityID)
     }
 
     private val getWeatherUseCase: GetWeatherUseCase by lazy {
@@ -41,6 +33,13 @@ class WeatherActivity : AppCompatActivity() {
                 GetWeatherUseCase(it)
             }
         }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_weather)
+        val cityID = intent.getIntExtra(CITY_ID, -1)
+        setupWeather(cityID)
     }
 
     @SuppressLint("SetTextI18n")

@@ -43,10 +43,12 @@ android {
 
 def room_version = "2.2.6"
 def retrofit = "2.9.0"
+def moxy = "2.2.1"
 dependencies {
-
+    implementation "com.github.moxy-community:moxy-ktx:$moxy"
+    implementation "com.github.moxy-community:moxy:$moxy"
+    implementation "com.github.moxy-community:moxy-androidx:$moxy"
     implementation "androidx.room:room-runtime:$room_version"
-    kapt "androidx.room:room-compiler:$room_version"
     implementation "com.squareup.retrofit2:retrofit:${retrofit}"
     implementation "com.squareup.retrofit2:converter-gson:${retrofit}"
     implementation fileTree(dir: "libs", include: ["*.jar"])
@@ -61,6 +63,8 @@ dependencies {
     implementation 'com.google.android.gms:play-services-location:15.0.1'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.6.0'
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.3.0"
+    kapt "androidx.room:room-compiler:$room_version"
+    kapt "com.github.moxy-community:moxy-compiler:$moxy"
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'

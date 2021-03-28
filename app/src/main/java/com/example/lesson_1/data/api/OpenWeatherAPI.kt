@@ -10,9 +10,11 @@ interface OpenWeatherAPI {
     suspend fun getWeather(@Query("id") cityID: Int): WeatherResponse
 
     @GET("find")
-    suspend fun getCities(@Query("lat") lat: Double,
-                          @Query("lon") lon: Double,
-                          @Query("cnt") cnt: Int): CitiesAroundResponse
+    suspend fun getCities(
+        @Query("lat") lat: Double,
+        @Query("lon") lon: Double,
+        @Query("cnt") cnt: Int
+    ): CitiesAroundResponse
 
     @GET("weather")
     suspend fun getCityId(@Query("q") cityName: String): WeatherResponse

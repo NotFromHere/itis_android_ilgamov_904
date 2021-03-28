@@ -1,4 +1,4 @@
-package com.example.lesson_1.presenter
+package com.example.lesson_1.presenter.recycler
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil

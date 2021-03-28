@@ -15,6 +15,7 @@ import com.example.lesson_1.domain.usecase.FindCitiesAroundUseCase
 import com.example.lesson_1.presenter.AppDatabase
 import com.example.lesson_1.presenter.moxy.MainPresenter
 import com.example.lesson_1.presenter.moxy.MainView
+import com.example.lesson_1.presenter.other.DataBaseInstance
 import com.example.lesson_1.presenter.recycler.RecyclerCityAdapter
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.material.snackbar.Snackbar
@@ -34,13 +35,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
     fun providePresenter(): MainPresenter = initPresenter()
 
     private val findCitiesAroundUseCase: FindCitiesAroundUseCase by lazy {
-        val db = Room.databaseBuilder(
-            applicationContext,
-            AppDatabase::class.java, "database-name"
-        )
-            .allowMainThreadQueries() //НЕ БЕЙТЕ, НЕ НАДО
-            .fallbackToDestructiveMigration()
-            .build()
+        val db = DataBaseInstance.getDataBase(this)
         ApiFactory.weatherAPI.let {
             WeatherRepositoryImpl(it, db.weatherDao()).let {
                 FindCitiesAroundUseCase(it)

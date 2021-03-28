@@ -11,6 +11,7 @@ import com.example.lesson_1.domain.usecase.GetWeatherUseCase
 import com.example.lesson_1.presenter.AppDatabase
 import com.example.lesson_1.presenter.moxy.WeatherPresenter
 import com.example.lesson_1.presenter.moxy.WeatherView
+import com.example.lesson_1.presenter.other.DataBaseInstance
 import kotlinx.android.synthetic.main.activity_weather.*
 import moxy.MvpAppCompatActivity
 import moxy.presenter.InjectPresenter
@@ -29,13 +30,7 @@ class WeatherActivity : MvpAppCompatActivity(), WeatherView {
     fun providePresenter(): WeatherPresenter = initPresenter()
 
     private val getWeatherUseCase: GetWeatherUseCase by lazy {
-        val db = Room.databaseBuilder(
-            applicationContext,
-            AppDatabase::class.java, "database-name"
-        )
-            .allowMainThreadQueries() //ТУТ ТОЖЕ ПОЗЯЗЯ
-            .fallbackToDestructiveMigration()
-            .build()
+        val db = DataBaseInstance.getDataBase(this)
         ApiFactory.weatherAPI.let {
             WeatherRepositoryImpl(it, db.weatherDao()).let {
                 GetWeatherUseCase(it)
